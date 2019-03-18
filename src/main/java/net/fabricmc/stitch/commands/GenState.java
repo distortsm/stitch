@@ -74,7 +74,7 @@ class GenState {
                 writer.write("v1\tofficial\tintermediary\n");
 
                 for (JarClassEntry c : jarEntry.getClasses()) {
-                    addClass(writer, c, jarOld, jarEntry, "net/minecraft/");
+                    addClass(writer, c, jarOld, jarEntry, "org/schema/");
                 }
 
                 for (Map.Entry<String, Integer> counter : counters.entrySet()) {
@@ -293,7 +293,7 @@ class GenState {
     private void addClass(BufferedWriter writer, JarClassEntry c, ClassStorage storageOld, ClassStorage storage, String translatedPrefix) throws IOException {
         String cname = "";
 
-        if (c.getName().contains("/")) {
+        if (c.getName().contains("/") && !c.getName().startsWith("obfuscated/")) {
             translatedPrefix = c.getFullyQualifiedName();
         } else {
             if (!isMappedClass(storage, c)) {
